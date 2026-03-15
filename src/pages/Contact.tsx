@@ -9,6 +9,7 @@ const CONTACT_EMAIL = "madhanrajprivate2006@gmail.com";
 const CONTACT_PHONE = "7695967955";
 const CONTACT_PHONE_COUNTRY = "91";
 const CONTACT_EMAIL_API = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+const EMAIL_REQUEST_TIMEOUT_MS = 6000;
 
 const faqs = [
   {
@@ -43,6 +44,31 @@ const Contact = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [sending, setSending] = useState(false);
 
+  const postWithTimeout = async (payload: Record<string, string>) => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), EMAIL_REQUEST_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(CONTACT_EMAIL_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error("Email submission failed");
+      }
+
+      return response;
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
   const buildContactMessage = () => {
     return [
       `Name: ${form.name}`,
@@ -54,30 +80,13 @@ const Contact = () => {
   };
 
   const sendEmailAutomatically = async () => {
-    const response = await fetch(CONTACT_EMAIL_API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        message: form.message,
-        _subject: `New Website Inquiry from ${form.name}`,
-        _captcha: "false",
-      }),
+    await postWithTimeout({
+      name: form.name,
+      email: form.email,
+      message: form.message,
+      _subject: `New Website Inquiry from ${form.name}`,
+      _captcha: "false",
     });
-
-    if (!response.ok) {
-      throw new Error("Email submission failed");
-    }
-
-    const data = await response.json();
-    const isSuccess = data?.success === true || data?.success === "true";
-    if (!isSuccess) {
-      throw new Error(data?.message || "Email submission response not successful");
-    }
   };
 
   const openWhatsAppDraft = () => {
@@ -99,7 +108,11 @@ const Contact = () => {
       toast.success("Email sent automatically. WhatsApp opened.");
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
-      const reason = error instanceof Error ? error.message : "Email failed to send automatically.";
+      const reason = error instanceof DOMException && error.name === "AbortError"
+        ? "Request timed out"
+        : error instanceof Error
+          ? error.message
+          : "Email failed to send automatically.";
       openWhatsAppDraft();
       toast.error(`${reason} WhatsApp opened to send manually.`);
     } finally {

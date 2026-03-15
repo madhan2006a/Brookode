@@ -6,10 +6,36 @@ import logo from "@/assets/logo.png";
 
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "madhanrajprivate2006@gmail.com";
 const CONTACT_EMAIL_API = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
+const EMAIL_REQUEST_TIMEOUT_MS = 6000;
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const postWithTimeout = async (payload: Record<string, string>) => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), EMAIL_REQUEST_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(CONTACT_EMAIL_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error("Email submission failed");
+      }
+
+      return response;
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,34 +48,21 @@ const Footer = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(CONTACT_EMAIL_API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          email: cleanEmail,
-          source: "Footer CTA",
-          _subject: "New Footer Inquiry Email",
-          _captcha: "false",
-        }),
+      await postWithTimeout({
+        email: cleanEmail,
+        source: "Footer CTA",
+        _subject: "New Footer Inquiry Email",
+        _captcha: "false",
       });
-
-      if (!response.ok) {
-        throw new Error("Email submission failed");
-      }
-
-      const data = await response.json();
-      const isSuccess = data?.success === true || data?.success === "true";
-      if (!isSuccess) {
-        throw new Error(data?.message || "Email submission response not successful");
-      }
 
       toast.success("Thanks! Your email was sent successfully.");
       setEmail("");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Could not send email right now. Please try again.";
+      const message = error instanceof DOMException && error.name === "AbortError"
+        ? "Request timed out. Please try again."
+        : error instanceof Error
+          ? error.message
+          : "Could not send email right now. Please try again.";
       toast.error(message);
     } finally {
       setIsSubmitting(false);
