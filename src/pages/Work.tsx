@@ -60,7 +60,7 @@ const projects: Project[] = [
     desc: "A product-focused cookies storefront website designed for clear product discovery and smooth online ordering experience.",
     stack: ["HTML", "CSS", "JavaScript"],
     link: "https://cookies-project-alpha.vercel.app/",
-    palette: "from-[#f6e6d6] via-[#fff6ea] to-[#f2dfcb]",
+    palette: "from-[#d9d9d9] via-[#f4f4f4] to-[#cfcfcf]",
     gallery: [proj1Img1, proj1Img2, proj1Img3],
     mobileImage: proj1MobileImg,
     mobileGallery: [proj1MobileImg, proj1MobileImg2, proj1MobileImg3],
@@ -71,7 +71,7 @@ const projects: Project[] = [
     desc: "A seafood restaurant website featuring menu highlights, brand storytelling, and a conversion-oriented booking flow.",
     stack: ["React", "Tailwind", "TypeScript"],
     link: "https://sea-food-res-w8lo.vercel.app/",
-    palette: "from-[#d9eef0] via-[#eef8f9] to-[#d6edf3]",
+    palette: "from-[#d6d6d6] via-[#f3f3f3] to-[#cacaca]",
     gallery: [proj2Img1, proj2Img2, proj2Img3],
     mobileImage: proj2MobileImg1,
     mobileGallery: [proj2MobileImg1, proj2MobileImg2, proj2MobileImg3],
@@ -82,7 +82,7 @@ const projects: Project[] = [
     desc: "A warm coffee brand website crafted to showcase products, atmosphere, and customer engagement with modern UI.",
     stack: ["Next.js", "Framer Motion", "CMS"],
     link: "https://cafe-carner.vercel.app/",
-    palette: "from-[#efe0d2] via-[#fbf4ec] to-[#ebdcc9]",
+    palette: "from-[#d4d4d4] via-[#f1f1f1] to-[#c8c8c8]",
     gallery: [proj3Img1, proj3Img2, proj3Img3],
     mobileImage: proj3MobileImg1,
     mobileGallery: [proj3MobileImg1, proj3MobileImg2, proj3MobileImg3],
@@ -93,7 +93,7 @@ const projects: Project[] = [
     desc: "A premium restaurant presentation with immersive visuals, signature dish highlights, and table reservation flow.",
     stack: ["React", "Node", "SEO"],
     link: "https://silver-nest-retreat.vercel.app/",
-    palette: "from-[#e7e5d9] via-[#f6f5ee] to-[#e8e7dc]",
+    palette: "from-[#dbdbdb] via-[#f5f5f5] to-[#d0d0d0]",
     gallery: [proj4Img1, proj4Img2, proj4Img3],
     mobileImage: proj4MobileImg1,
     mobileGallery: [proj4MobileImg1, proj4MobileImg2, proj4MobileImg3],
@@ -104,7 +104,7 @@ const projects: Project[] = [
     desc: "A healthcare website built for trust and clarity, with strong service communication and easy patient navigation.",
     stack: ["React", "Tailwind", "JavaScript"],
     link: "https://hospital-demo-fawn.vercel.app/",
-    palette: "from-[#d9eadf] via-[#eef6f1] to-[#dceee6]",
+    palette: "from-[#d7d7d7] via-[#f2f2f2] to-[#cdcdcd]",
     gallery: [proj5Img1, proj5Img2, proj5Img3],
     mobileImage: proj5MobileImg1,
     mobileGallery: [proj5MobileImg1, proj5MobileImg2, proj5MobileImg3],
@@ -128,9 +128,9 @@ const ProjectShowcase = ({ project, delay }: { project: Project; delay: number }
 
           <div className="relative h-full rounded-[1.7rem] border border-black/10 bg-[#0f1114] p-4 md:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
             <div className="mb-4 flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 backdrop-blur">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/85" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/55" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
               <span className="ml-2 text-[10px] uppercase tracking-[0.12em] text-white/70">{getDisplayHost(project.link)}</span>
             </div>
 
