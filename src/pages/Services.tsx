@@ -151,8 +151,8 @@ const Services = () => {
       <section className="py-12 md:py-24 border-t border-border">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-start">
-            <ScrollReveal>
-              <div className="lg:col-span-5">
+            <ScrollReveal className="lg:col-span-5">
+              <div>
                 <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4">What You Get</p>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">Service Deliverables</h2>
                 <p className="text-muted-foreground leading-relaxed">
