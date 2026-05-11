@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import logo from "@/assets/logo.png";
 
-const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "madhanrajprivate2006@gmail.com";
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "brookodetechnology@gmail.com";
 const CONTACT_EMAIL_API = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
 const EMAIL_REQUEST_TIMEOUT_MS = 6000;
 

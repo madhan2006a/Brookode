@@ -28,7 +28,7 @@ npm run preview
 ## Project details
 
 - Brand: Brookode
-- Contact email: madhanrajprivate2006@gmail.com
+- Contact email: brookodetechnology@gmail.com
 - Contact phone: +91 7695967955
 
 ## Features

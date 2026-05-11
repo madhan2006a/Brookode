@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import { toast } from "sonner";
 
-const CONTACT_EMAIL = "madhanrajprivate2006@gmail.com";
+const CONTACT_EMAIL = "brookodetechnology@gmail.com";
 const CONTACT_PHONE = "7695967955";
 const CONTACT_PHONE_COUNTRY = "91";
 const CONTACT_EMAIL_API = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
