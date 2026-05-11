@@ -66,7 +66,7 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         transition={{ delay: 0.5 }}
         className="text-black/45 text-xs uppercase tracking-[0.3em] mb-10"
       >
-        Est. 2024
+        Est. 2026
       </motion.p>
 
       {/* Brand */}
